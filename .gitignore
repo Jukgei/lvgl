@@ -1,4 +1,5 @@
 scripts/release/__pycache__
+build/
 **/*.o
 **/*bin
 **/*.swp
