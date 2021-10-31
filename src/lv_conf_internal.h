@@ -2024,5 +2024,5 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h" */
 #  endif
 
 #endif
-
+#define LV_PNG_USE_LV_FILESYSTEM    0
 #endif  /*LV_CONF_INTERNAL_H*/
