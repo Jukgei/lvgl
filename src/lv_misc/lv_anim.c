@@ -42,7 +42,7 @@ static uint32_t last_task_run;
 static bool anim_list_changed;
 static bool anim_run_round;
 static lv_task_t * _lv_anim_task;
-const lv_anim_path_t lv_anim_path_def = {.cb = lv_anim_path_linear};
+const lv_anim_path_t lv_anim_path_def = {.cb = lv_anim_path_ease_in_out};
 
 /**********************
  *      MACROS
