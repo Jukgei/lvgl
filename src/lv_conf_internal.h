@@ -884,6 +884,9 @@ e.g. "stm32f769xx.h" or "stm32f429xx.h" */
 
 /* Montserrat fonts with bpp = 4
  * https://fonts.google.com/specimen/Montserrat  */
+#define PINGFANG_50                 1
+#define LV_FONT_PINGFANG_30                 1
+#define LV_FONT_PINGFANG_20                 1
 #ifndef LV_FONT_MONTSERRAT_8
 #  ifdef CONFIG_LV_FONT_MONTSERRAT_8
 #    define LV_FONT_MONTSERRAT_8 CONFIG_LV_FONT_MONTSERRAT_8
