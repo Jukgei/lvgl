@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file lv_text.c
  *
  */
@@ -7,6 +7,7 @@
  *      INCLUDES
  *********************/
 #include <stdarg.h>
+#include <stdio.h>
 #include "lv_txt.h"
 #include "lv_txt_ap.h"
 #include "lv_math.h"
@@ -107,7 +108,6 @@ void _lv_txt_get_size(lv_point_t * size_res, const char * text, const lv_font_t 
     uint32_t line_start     = 0;
     uint32_t new_line_start = 0;
     uint16_t letter_height = lv_font_get_line_height(font);
-
     /*Calc. the height and longest line*/
     while(text[line_start] != '\0') {
         new_line_start += _lv_txt_get_next_line(&text[line_start], font, letter_space, max_width, flag);
@@ -117,6 +117,7 @@ void _lv_txt_get_size(lv_point_t * size_res, const char * text, const lv_font_t 
             return;
         }
         else {
+
             size_res->y += letter_height;
             size_res->y += line_space;
         }

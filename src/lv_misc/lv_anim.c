@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file lv_anim.c
  *
  */
@@ -42,7 +42,7 @@ static uint32_t last_task_run;
 static bool anim_list_changed;
 static bool anim_run_round;
 static lv_task_t * _lv_anim_task;
-const lv_anim_path_t lv_anim_path_def = {.cb = lv_anim_path_linear};
+const lv_anim_path_t lv_anim_path_def = {.cb = lv_anim_path_ease_in_out };
 
 /**********************
  *      MACROS
@@ -243,6 +243,28 @@ lv_anim_value_t lv_anim_path_linear(const lv_anim_path_t * path, const lv_anim_t
 }
 
 /**
+ * Calculate the current value of an animation applying uniform acceleration/deceleration
+ * @param a pointer to an animation
+ * @return the current value to set
+ */
+lv_anim_value_t lv_anim_path_smooth(const lv_anim_path_t* path, const lv_anim_t* a)
+{
+    LV_UNUSED(path);
+
+    /*Calculate the current step*/
+    int32_t step = _lv_map(a->act_time, 0, a->time, 0, LV_ANIM_RESOLUTION);
+
+    /* Get the new value which will be proportional to `step`
+     * and the `start` and `end` values*/
+    int32_t new_value;
+    new_value = step * (a->end - a->start);
+    new_value = new_value >> LV_ANIM_RES_SHIFT;
+    new_value += a->start;
+
+    return new_value;
+}
+
+/**
  * Calculate the current value of an animation slowing down the start phase
  * @param a pointer to an animation
  * @return the current value to set
@@ -298,7 +320,7 @@ lv_anim_value_t lv_anim_path_ease_in_out(const lv_anim_path_t * path, const lv_a
     /*Calculate the current step*/
 
     uint32_t t = _lv_map(a->act_time, 0, a->time, 0, 1024);
-    int32_t step = _lv_bezier3(t, 0, 100, 924, 1024);
+    int32_t step = _lv_bezier3(t, 0, 50, 974, 1024);
 
     int32_t new_value;
     new_value = step * (a->end - a->start);

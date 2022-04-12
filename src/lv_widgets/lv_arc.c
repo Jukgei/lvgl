@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file lv_arc.c
  *
  */
@@ -15,6 +15,7 @@
 #include "../lv_misc/lv_math.h"
 #include "../lv_draw/lv_draw_arc.h"
 #include "../lv_themes/lv_theme.h"
+#include <stdio.h>
 
 /*********************
  *      DEFINES
@@ -1035,12 +1036,14 @@ static void get_center(lv_obj_t * arc, lv_point_t * center, lv_coord_t * arc_r)
     lv_coord_t r = (LV_MATH_MIN(lv_obj_get_width(arc) - left_bg - right_bg,
                                 lv_obj_get_height(arc) - top_bg - bottom_bg)) / 2;
 
+    printf("r is %d\n", r);
     *arc_r = r;
     center->x = arc->coords.x1 + r + left_bg;
     center->y = arc->coords.y1 + r + top_bg;
 
     lv_coord_t indic_width = lv_obj_get_style_line_width(arc, LV_ARC_PART_INDIC);
     r -= indic_width;
+    printf("after process r is %d\n", r);
 }
 
 static void get_knob_area(lv_obj_t * arc, const lv_point_t * center, lv_coord_t r, lv_area_t * knob_area)

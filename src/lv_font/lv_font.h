@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file lv_font.h
  *
  */
@@ -230,6 +230,30 @@ LV_FONT_DECLARE(lv_font_dejavu_16_persian_hebrew)
 
 #if LV_FONT_SIMSUN_16_CJK
 LV_FONT_DECLARE(lv_font_simsun_16_cjk)
+#endif
+
+#if PINGFANG
+LV_FONT_DECLARE(pingfang)
+#endif
+
+#if LV_FONT_PINGFANG_18
+LV_FONT_DECLARE(lv_font_pingfang_18)
+#endif
+
+#if LV_FONT_PINGFANG_10
+LV_FONT_DECLARE(lv_font_pingfang_10)
+#endif
+
+#if LV_FONT_PINGFANG_40
+LV_FONT_DECLARE(lv_font_pingfang_40)
+#endif
+
+#if LV_FONT_PINGFANG_30
+LV_FONT_DECLARE(lv_font_pingfang_30)
+#endif
+
+#if LV_FONT_PINGFANG_24
+LV_FONT_DECLARE(lv_font_pingfang_24)
 #endif
 
 /*Declare the custom (user defined) fonts*/
