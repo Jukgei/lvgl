@@ -81,54 +81,58 @@ bool lv_fs_is_ready(char letter)
  */
 lv_fs_res_t lv_fs_open(lv_fs_file_t * file_p, const char * path, lv_fs_mode_t mode)
 {
-    file_p->drv    = NULL;
-    file_p->file_d = NULL;
+    /* file_p->drv    = NULL; */
+    /* file_p->file_d = NULL; */
 
     if(path == NULL) return LV_FS_RES_INV_PARAM;
 
     char letter = path[0];
+    lv_fs_drv_t * drv = lv_fs_get_drv(letter);
 
-    file_p->drv = lv_fs_get_drv(letter);
-
-    if(file_p->drv == NULL) {
+    if(drv == NULL) {
         return LV_FS_RES_NOT_EX;
     }
 
-    if(file_p->drv->ready_cb != NULL) {
-        if(file_p->drv->ready_cb(file_p->drv) == false) {
-            file_p->drv = NULL;
+    if(drv->ready_cb) {
+        if(drv->ready_cb(drv) == false) {
             return LV_FS_RES_HW_ERR;
         }
     }
 
-    if(file_p->drv->open_cb == NULL) {
-        file_p->drv = NULL;
+    if(drv->open_cb == NULL) {
         return LV_FS_RES_NOT_IMP;
     }
 
     const char * real_path = lv_fs_get_real_path(path);
+    void * file_d = drv->open_cb(drv, real_path, mode);
 
-    if(file_p->drv->file_size == 0) {  /*Is file_d zero size?*/
-        /*Pass file_d's address to open_cb, so the implementor can allocate memory byself*/
-        return file_p->drv->open_cb(file_p->drv, &file_p->file_d, real_path, mode);
-    }
+    if (file_d == NULL || file_d == (void *)(-1))
+        return LV_FS_RES_UNKNOWN;
 
-    file_p->file_d = lv_mem_alloc(file_p->drv->file_size);
-    LV_ASSERT_MEM(file_p->file_d);
-    if(file_p->file_d == NULL) {
-        file_p->drv = NULL;
-        return LV_FS_RES_OUT_OF_MEM; /* Out of memory */
-    }
+    file_p->drv = drv;
+    file_p->file_d = file_d;
 
-    lv_fs_res_t res = file_p->drv->open_cb(file_p->drv, file_p->file_d, real_path, mode);
+    //if(file_p->drv->file_size == 0) {  /*Is file_d zero size?*/
+       /*Pass file_d's address to open_cb, so the implementor can allocate memory byself*/
+    /*    return file_p->drv->open_cb(file_p->drv, &file_p->file_d, real_path, mode);*/
+    /*}*/
 
-    if(res != LV_FS_RES_OK) {
-        lv_mem_free(file_p->file_d);
-        file_p->file_d = NULL;
-        file_p->drv    = NULL;
-    }
+    /* file_p->file_d = lv_mem_alloc(file_p->drv->file_size); */
+    /* LV_ASSERT_MEM(file_p->file_d); */
+    /* if(file_p->file_d == NULL) { */
+    /*     file_p->drv = NULL; */
+    /*     return LV_FS_RES_OUT_OF_MEM; /1* Out of memory *1/ */
+    /* } */
 
-    return res;
+    /* file_p->file_d  = file_p->drv->open_cb(file_p->drv, real_path, mode); */
+
+    /* if(res != LV_FS_RES_OK) { */
+    /*     lv_mem_free(file_p->file_d); */
+    /*     file_p->file_d = NULL; */
+    /*     file_p->drv    = NULL; */
+    /* } */
+
+    return LV_FS_RES_OK;
 }
 
 /**

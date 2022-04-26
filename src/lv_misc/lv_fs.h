@@ -66,7 +66,9 @@ typedef struct _lv_fs_drv_t {
     uint16_t rddir_size;
     bool (*ready_cb)(struct _lv_fs_drv_t * drv);
 
-    lv_fs_res_t (*open_cb)(struct _lv_fs_drv_t * drv, void * file_p, const char * path, lv_fs_mode_t mode);
+    /* lv_fs_res_t (*open_cb)(struct _lv_fs_drv_t * drv, void * file_p, const char * path, lv_fs_mode_t mode); */
+    void * (*open_cb)(struct _lv_fs_drv_t * drv, const char * path, lv_fs_mode_t mode);
+
     lv_fs_res_t (*close_cb)(struct _lv_fs_drv_t * drv, void * file_p);
     lv_fs_res_t (*remove_cb)(struct _lv_fs_drv_t * drv, const char * fn);
     lv_fs_res_t (*read_cb)(struct _lv_fs_drv_t * drv, void * file_p, void * buf, uint32_t btr, uint32_t * br);
