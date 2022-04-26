@@ -1036,8 +1036,11 @@ static void get_center(lv_obj_t * arc, lv_point_t * center, lv_coord_t * arc_r)
                                 lv_obj_get_height(arc) - top_bg - bottom_bg)) / 2;
 
     *arc_r = r;
-    center->x = arc->coords.x1 + r + left_bg;
-    center->y = arc->coords.y1 + r + top_bg;
+    /* center->x = arc->coords.x1 + r + left_bg; */
+    /* center->y = arc->coords.y1 + r + top_bg; */
+
+    center->x = arc->coords.x1 + (arc->coords.x2 - arc->coords.x1) / 2;
+    center->y = arc->coords.y1 + (arc->coords.y2 - arc->coords.y1) / 2;
 
     lv_coord_t indic_width = lv_obj_get_style_line_width(arc, LV_ARC_PART_INDIC);
     r -= indic_width;
