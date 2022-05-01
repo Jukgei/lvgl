@@ -232,18 +232,6 @@ LV_FONT_DECLARE(lv_font_dejavu_16_persian_hebrew)
 LV_FONT_DECLARE(lv_font_simsun_16_cjk)
 #endif
 
-#if PINGFANG_50
-LV_FONT_DECLARE(pingfang_50)
-#endif
-
-#if LV_FONT_PINGFANG_30
-LV_FONT_DECLARE(lv_font_pingfang_30)
-#endif
-
-#if LV_FONT_PINGFANG_20
-LV_FONT_DECLARE(lv_font_pingfang_20)
-#endif
-
 /*Declare the custom (user defined) fonts*/
 #ifdef LV_FONT_CUSTOM_DECLARE
 LV_FONT_CUSTOM_DECLARE
