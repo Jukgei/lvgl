@@ -37,6 +37,11 @@ extern "C" {
 
 typedef void (*lv_gauge_format_cb_t)(lv_obj_t * gauge, char * buf, int bufsize, int32_t value);
 
+typedef struct {
+    lv_point_t needle_img_pivot;
+    const void* needle_img;
+} needle_img_t;
+
 /*Data of gauge*/
 typedef struct {
     lv_linemeter_ext_t lmeter; /*Ext. of ancestor*/
@@ -50,6 +55,7 @@ typedef struct {
     uint8_t needle_count;             /*Number of needles*/
     uint8_t label_count;              /*Number of labels on the scale*/
     lv_gauge_format_cb_t format_cb;
+    needle_img_t * needle_imgs;
 } lv_gauge_ext_t;
 
 /*Styles*/
@@ -147,6 +153,8 @@ static inline void lv_gauge_set_angle_offset(lv_obj_t * gauge, uint16_t angle)
  */
 void lv_gauge_set_needle_img(lv_obj_t * gauge, const void * img, lv_coord_t pivot_x, lv_coord_t pivot_y);
 
+
+void lv_gauge_set_needle_imgs(lv_obj_t* gauge, const needle_img_t* needle_imgs);
 /**
  * Assign a function to format gauge values
  * @param gauge pointer to a gauge object
