@@ -16,7 +16,7 @@
 #include "../lv_core/lv_indev.h"
 #include "../lv_themes/lv_theme.h"
 #include <string.h>
-
+/* #include <stdio.h> */
 /*********************
  *      DEFINES
  *********************/
@@ -719,10 +719,12 @@ static void draw_header(lv_obj_t * calendar, const lv_area_t * mask)
 
     /*Add the year + month name*/
     char txt_buf[64];
-    _lv_utils_num_to_str(ext->showed_date.year, txt_buf);
-    txt_buf[4] = ' ';
-    txt_buf[5] = '\0';
-    strcpy(&txt_buf[5], get_month_name(calendar, ext->showed_date.month));
+    // _lv_utils_num_to_str(ext->showed_date.year, txt_buf);
+    // _lv_utils_num_to_str(ext->showed_date.month, txt_buf);
+    // txt_buf[4] = ' ';
+    // txt_buf[5] = '\0';
+    // strcpy(&txt_buf[5], get_month_name(calendar, ext->showed_date.month));
+    strcpy(txt_buf, get_month_name(calendar, ext->showed_date.month));
 
     calendar->state = LV_STATE_DEFAULT;
     _lv_obj_disable_style_caching(calendar, true);
@@ -730,7 +732,10 @@ static void draw_header(lv_obj_t * calendar, const lv_area_t * mask)
     lv_draw_label_dsc_t label_dsc;
     lv_draw_label_dsc_init(&label_dsc);
     lv_obj_init_draw_label_dsc(calendar, LV_CALENDAR_PART_HEADER, &label_dsc);
-    label_dsc.flag = LV_TXT_FLAG_CENTER;
+    // label_dsc.flag = LV_TXT_FLAG_CENTER;
+    label_dsc.flag = LV_TXT_FLAG_NONE;
+    label_dsc.ofs_x = 12;
+
     header_area.y1 += lv_obj_get_style_pad_top(calendar, LV_CALENDAR_PART_HEADER);
     header_area.y2 -= lv_obj_get_style_pad_bottom(calendar, LV_CALENDAR_PART_HEADER);
     lv_draw_label(&header_area, mask, &label_dsc, txt_buf, NULL);
