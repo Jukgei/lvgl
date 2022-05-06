@@ -416,5 +416,9 @@ static void scr_anim_ready(lv_anim_t * a)
     d->prev_scr = NULL;
     d->scr_to_load = NULL;
     lv_style_remove_prop(lv_obj_get_local_style(a->var, LV_OBJ_PART_MAIN), LV_STYLE_OPA_SCALE);
+
+    lv_obj_t* scr = lv_scr_act();
+    if (scr->load_done_cb)
+        scr->load_done_cb();
 }
 #endif

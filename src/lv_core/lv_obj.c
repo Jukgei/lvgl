@@ -293,7 +293,7 @@ lv_obj_t * lv_obj_create(lv_obj_t * parent, const lv_obj_t * copy)
         new_obj->signal_cb = lv_obj_signal;
         new_obj->design_cb = lv_obj_design;
         new_obj->event_cb = NULL;
-
+        new_obj->load_done_cb = NULL;
         /*Set coordinates to full screen size*/
         new_obj->coords.x1    = 0;
         new_obj->coords.y1    = 0;
@@ -323,6 +323,7 @@ lv_obj_t * lv_obj_create(lv_obj_t * parent, const lv_obj_t * copy)
         new_obj->signal_cb = lv_obj_signal;
         new_obj->design_cb = lv_obj_design;
         new_obj->event_cb = NULL;
+        new_obj->load_done_cb = NULL;
 
         new_obj->coords.y1    = parent->coords.y1;
         new_obj->coords.y2    = parent->coords.y1 + LV_OBJ_DEF_HEIGHT;

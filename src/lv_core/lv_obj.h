@@ -245,6 +245,8 @@ typedef struct _lv_obj_t {
 #if LV_USE_USER_DATA
     lv_obj_user_data_t user_data; /**< Custom user data for object. */
 #endif
+    
+    void (*load_done_cb)(void);
 
 } lv_obj_t;
 
