@@ -247,7 +247,7 @@ typedef struct _lv_obj_t {
 #endif
     
     void (*load_done_cb)(void);
-
+    bool is_load_by_anim;
 } lv_obj_t;
 
 enum {

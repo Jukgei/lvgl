@@ -85,6 +85,8 @@ void lv_disp_load_scr(lv_obj_t * scr)
     d->act_scr = scr;
 
     lv_obj_invalidate(scr);
+
+    if (scr->load_done_cb && !scr->is_load_by_anim) scr->load_done_cb();
 }
 
 /**
@@ -212,6 +214,8 @@ void lv_disp_set_bg_opa(lv_disp_t * disp, lv_opa_t opa)
  */
 void lv_scr_load_anim(lv_obj_t * new_scr, lv_scr_load_anim_t anim_type, uint32_t time, uint32_t delay, bool auto_del)
 {
+    new_scr->is_load_by_anim = true;
+
     lv_disp_t * d = lv_obj_get_disp(new_scr);
     lv_obj_t * act_scr = lv_scr_act();
 
@@ -418,7 +422,8 @@ static void scr_anim_ready(lv_anim_t * a)
     lv_style_remove_prop(lv_obj_get_local_style(a->var, LV_OBJ_PART_MAIN), LV_STYLE_OPA_SCALE);
 
     lv_obj_t* scr = lv_scr_act();
-    if (scr->load_done_cb)
+    if (scr->load_done_cb && scr->is_load_by_anim)
         scr->load_done_cb();
+    scr->is_load_by_anim = false;
 }
 #endif
