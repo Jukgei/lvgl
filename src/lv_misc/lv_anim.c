@@ -429,7 +429,7 @@ static void anim_task(lv_task_t * param)
             /*The animation will run now for the first time. Call `start_cb`*/
             int32_t new_act_time = a->act_time + elaps;
             if(a->act_time <= 0 && new_act_time >= 0) {
-                if(a->start_cb) a->start_cb(a);
+                if(a->start_cb) a->start_cb(a); 
             }
             a->act_time += elaps;
             if(a->act_time >= 0) {
@@ -483,6 +483,7 @@ static void anim_ready_handler(lv_anim_t * a)
         /*Create copy from the animation and delete the animation from the list.
          * This way the `ready_cb` will see the animations like it's animation is ready deleted*/
         lv_anim_t a_tmp;
+        if(a->ready_cb != NULL) a->ready_cb(a);
         _lv_memcpy(&a_tmp, a, sizeof(lv_anim_t));
         _lv_ll_remove(&LV_GC_ROOT(_lv_anim_ll), a);
         lv_mem_free(a);
@@ -490,7 +491,7 @@ static void anim_ready_handler(lv_anim_t * a)
         anim_mark_list_change();
 
         /* Call the callback function at the end*/
-        if(a_tmp.ready_cb != NULL) a_tmp.ready_cb(&a_tmp);
+        /* if(a_tmp.ready_cb != NULL) a_tmp.ready_cb(&a_tmp); */
     }
     /*If the animation is not deleted then restart it*/
     else {

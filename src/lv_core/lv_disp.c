@@ -401,6 +401,7 @@ lv_task_t * _lv_disp_get_refr_task(lv_disp_t * disp)
 #if LV_USE_ANIMATION
 static void scr_load_anim_start(lv_anim_t * a)
 {
+    if (a->var == lv_scr_act()) return;
     lv_disp_t * d = lv_obj_get_disp(a->var);
     d->prev_scr = lv_scr_act();
 
